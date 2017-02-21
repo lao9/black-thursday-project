@@ -1,4 +1,4 @@
-require './lib/search_engine'
+require './lib/sales_engine'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
@@ -11,11 +11,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv_method
+skip
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv"
       })
-    
+
   end
 
 end

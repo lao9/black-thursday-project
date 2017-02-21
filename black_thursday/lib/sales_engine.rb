@@ -1,1 +1,7 @@
-# create search_engine class
+class SalesEngine
+
+  def self.from_csv(file)
+
+  end
+
+end
