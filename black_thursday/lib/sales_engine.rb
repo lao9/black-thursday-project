@@ -9,7 +9,7 @@ class SalesEngine
     @mr_hash = Hash.new(0)
   end
 
-  def from_csv(path_hash)
+  def self.from_csv(path_hash)
 
     merchants = CSV.foreach(path_hash[:merchants], headers: true) do |line|
       m = Merchant.new({:id => line["id"],
