@@ -8,8 +8,8 @@ class ItemTest < Minitest::Test
 
   def setup
     @i = Item.new({
-      :id => 123456789
-      :merchant_id => 987654321
+      :id => 123456789,
+      :merchant_id => 987654321,
       :name        => "Pencil",
       :description => "You can use it to write things",
       :unit_price  => BigDecimal.new(10.99,4),
@@ -56,7 +56,7 @@ class ItemTest < Minitest::Test
 
   def test_it_returns_the_price_of_an_item_in_dollars_as_float
     assert_equal 10.99, @i.unit_price_to_dollars
-    assert_instance_of Float, @i.unit_price_to_dollars  
+    assert_instance_of Float, @i.unit_price_to_dollars
   end
 
 end
