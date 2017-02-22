@@ -20,7 +20,7 @@ class MerchantTest < Minitest::Test
 
   def test_it_has_a_name
     assert_equal "Turing School", @m.name
-
+  end
 
   def test_it_has_an_id
     assert_equal 5, @m.id
