@@ -35,7 +35,7 @@ skip
   def test_find_all_by_name
 skip
     assert_equal [], @mr.find_all_by_name('poohead')
-    assert_equal 3, @mr.find_all_by_name('shop')
-    assert_equal 3, @mr.find_all_by_name('SHOP')
+    assert_equal 3, @mr.find_all_by_name('shop').count
+    assert_equal 3, @mr.find_all_by_name('SHOP').count
   end
 end
