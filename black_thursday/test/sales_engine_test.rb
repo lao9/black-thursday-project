@@ -11,12 +11,12 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv_method
-skip
     se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv"
+      :items => "./test_fixtures/items_test_fixtures.csv",
+      :merchants => "./test_fixtures/merchants_test_fixture.csv"
       })
-
+    assert_instance_of MerchantRepository, se.merchants
+    assert_instance_of ItemRepository, se.items
   end
 
 end
