@@ -7,12 +7,9 @@ require './lib/item_repository'
 
 class SalesEngine
 
-  def initialize
+  def self.from_csv(path_hash)
     @mr_hash = Hash.new(0)
     @ir_hash = Hash.new(0)
-  end
-
-  def self.from_csv(path_hash)
 
     merchants = CSV.foreach(path_hash[:merchants], headers: true) do |line|
       m = Merchant.new({:id => line["id"],
@@ -35,22 +32,14 @@ class SalesEngine
         })
       @ir_hash[line["id"]] = i
     end
-
+    self
   end
 
-
-  def merchants
+  def self.merchants
     MerchantRepository.new(@mr_hash)
   end
 
-  def items
+  def self.items
     ItemRepository.new(@ir_hash)
   end
 end
-
-#
-# episode = {}
-# episodes = CSV.foreach(@filename, headers: true) do |line|
-#   episode["EPISODE"] = line["EPISODE"]
-# end
-# episode["EPISODE"]
