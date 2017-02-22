@@ -6,7 +6,12 @@ require 'pry'
 class MerchantTest < Minitest::Test
 
   def setup
-    @m = Merchant.new({:id => 5, :name => "Turing School"})
+    @m = Merchant.new({
+      :id => 5,
+      :name => "Turing School",
+      :created_at  => '12/10/10',
+      :updated_at  => '12/10/10',
+      })
   end
 
   def test_it_exists
