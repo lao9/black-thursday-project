@@ -9,6 +9,7 @@ class SalesEngine
   attr_reader :merchant_csv
   def initialize(path_hash)
     @merchant_csv = CSV.open(path_hash[:merchants], headers: true)
+    @item_csv = CSV.open(path_hash[:items], headers: true)
   end
 
   def self.from_csv(path_hash)
@@ -47,7 +48,7 @@ class SalesEngine
     MerchantRepository.new(merchant_csv, self)
   end
 
-  def self.items
-    ItemRepository.new(@ir_hash)
+  def items
+    ItemRepository.new(item_csv, self)
   end
 end
