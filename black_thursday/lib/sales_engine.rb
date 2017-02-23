@@ -8,8 +8,8 @@ require './lib/item_repository'
 class SalesEngine
 
   def self.from_csv(path_hash)
-    @mr_hash = Hash.new(0)
-    @ir_hash = Hash.new(0)
+    @mr_hash = Hash.new
+    @ir_hash = Hash.new
 
     merchants = CSV.foreach(path_hash[:merchants], headers: true) do |line|
       m = Merchant.new({:id => line["id"],
