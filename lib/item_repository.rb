@@ -8,6 +8,10 @@ class ItemRepository
     @parent = parent
   end
 
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
       @item_list
   end
@@ -43,5 +47,5 @@ class ItemRepository
       item.merchant_id == merchant_id_lookup
     end
   end
-  
+
 end

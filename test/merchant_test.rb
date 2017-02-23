@@ -1,4 +1,4 @@
-require './lib/merchant'
+require_relative '../lib/merchant'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'

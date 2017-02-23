@@ -7,11 +7,16 @@ class MerchantRepository
     @parent = parent
   end
 
+  def inspect
+   "#<#{self.class} #{@merchants.size} rows>"
+  end
+
   def all
     @merchant_list
   end
 
   def find_by_id(id)
+    binding.pry
     @merchant_list.find { |merchant| merchant.id == id }
   end
 
