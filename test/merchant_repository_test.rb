@@ -22,14 +22,14 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_find_by_id
     assert_instance_of Merchant, @mr.find_by_id(12334105)
-    assert_equal '12334105', @mr.find_by_id(12334105).id
+    assert_equal 12334105, @mr.find_by_id(12334105).id
     assert_equal 'Shopin1901', @mr.find_by_id(12334105).name
-    assert_nil @mr.find_by_id('000000')
+    assert_nil @mr.find_by_id(000000)
   end
 
   def test_find_by_name
     assert_instance_of Merchant, @mr.find_by_name('Shopin1901')
-    assert_equal '12334105', @mr.find_by_name('Shopin1901').id
+    assert_equal 12334105, @mr.find_by_name('Shopin1901').id
     assert_equal 'Shopin1901', @mr.find_by_name('Shopin1901').name
     assert_nil @mr.find_by_name('fakename')
     assert_equal 'Shopin1901', @mr.find_by_name('SHOPIN1901').name
