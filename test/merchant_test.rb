@@ -7,11 +7,9 @@ class MerchantTest < Minitest::Test
 
   def setup
     @m = Merchant.new({
-      :id => 5,
-      :name => "Turing School",
-      :created_at  => '12/10/10',
-      :updated_at  => '12/10/10',
-      })
+      "id" => '5',
+      "name" => 'Turing School'
+      }, "parent")
   end
 
   def test_it_exists

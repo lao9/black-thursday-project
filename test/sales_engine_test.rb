@@ -3,12 +3,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 
-class SalesEngineTest < Minitest::Test
 
-  def test_it_exists
-    se = SalesEngine.new
-    assert_instance_of SalesEngine, se
-  end
+class SalesEngineTest < Minitest::Test
 
   def test_from_csv_method
     se = SalesEngine.from_csv({
@@ -16,9 +12,10 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./test_fixtures/merchants_test_fixture.csv"
       })
     assert_instance_of SalesEngine, se
-  
+    assert_instance_of CSV, se.merchant_raw_data
+    assert_instance_of CSV, se.item_raw_data
     assert_instance_of MerchantRepository, se.merchants
-    # assert_instance_of ItemRepository, se.items
+    assert_instance_of ItemRepository, se.items
   end
 
 end
