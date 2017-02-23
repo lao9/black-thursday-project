@@ -6,21 +6,31 @@ require './lib/item'
 require './lib/item_repository'
 
 class SalesEngine
-  attr_reader :merchant_csv
-  def initialize(path_hash)
-    @merchant_csv = CSV.open(path_hash[:merchants], headers: true)
-    @item_csv = CSV.open(path_hash[:items], headers: true)
+  attr_reader :merchant_raw_data, :item_raw_data
+  def initialize(paths)
+    @merchant_raw_data = CSV.open(paths[:merchants], headers: true)
+    @item_raw_data = CSV.open(paths[:items], headers: true)
   end
 
-  def self.from_csv(path_hash)
+  def self.from_csv(paths)
+    SalesEngine.new(paths)
+  end
 
-    SalesEngine.new(path_hash)
+  def merchants
+    MerchantRepository.new(merchant_raw_data, self)
+  end
+
+  def items
+    ItemRepository.new(item_raw_data, self)
+  end
+end
+
 
 
     # @mr_hash = Hash.new
     # @ir_hash = Hash.new
     #
-    # merchants = CSV.foreach(path_hash[:merchants], headers: true) do |line|
+    # merchants = CSV.foreach(paths[:merchants], headers: true) do |line|
     #   m = Merchant.new({:id => line["id"],
     #     :name => line["name"],
     #     :created_at => line["created_at"],
@@ -30,7 +40,7 @@ class SalesEngine
     #
     # end
     #
-    # items = CSV.foreach(path_hash[:items], headers: true) do |line|
+    # items = CSV.foreach(paths[:items], headers: true) do |line|
     #   i = Item.new({:id => line["id"],
     #     :merchant_id => line["merchant_id"],
     #     :name => line["name"],
@@ -42,13 +52,3 @@ class SalesEngine
     #   @ir_hash[line["id"]] = i
     # end
     # self
-  end
-
-  def merchants
-    MerchantRepository.new(merchant_csv, self)
-  end
-
-  def items
-    ItemRepository.new(item_csv, self)
-  end
-end
