@@ -6,7 +6,7 @@ require './lib/item'
 require './lib/item_repository'
 
 class SalesEngine
-  attr_reader :merchant_raw_data, :item_raw_data
+  attr_reader :merchant_raw_data, :item_raw_data, :items, :merchants
   def initialize(paths)
     @merchant_raw_data = CSV.open(paths[:merchants], headers: true)
     @item_raw_data = CSV.open(paths[:items], headers: true)
@@ -17,11 +17,11 @@ class SalesEngine
   end
 
   def merchants
-    MerchantRepository.new(merchant_raw_data, self)
+    @merchants ||= MerchantRepository.new(merchant_raw_data, self)
   end
 
   def items
-    ItemRepository.new(item_raw_data, self)
+    @items ||= ItemRepository.new(item_raw_data, self)
   end
 end
 
