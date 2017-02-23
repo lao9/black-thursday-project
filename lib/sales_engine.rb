@@ -1,9 +1,9 @@
 require 'pry'
 require 'csv'
-require './lib/merchant'
-require './lib/merchant_repository'
-require './lib/item'
-require './lib/item_repository'
+require_relative '../lib/merchant'
+require_relative '../lib/merchant_repository'
+require_relative '../lib/item'
+require_relative '../lib/item_repository'
 
 class SalesEngine
   attr_reader :merchant_raw_data, :item_raw_data, :items, :merchants
@@ -23,6 +23,7 @@ class SalesEngine
   def items
     @items ||= ItemRepository.new(item_raw_data, self)
   end
+  
 end
 
 

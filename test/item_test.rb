@@ -1,4 +1,4 @@
-require './lib/item'
+require_relative '../lib/item'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'bigdecimal'
