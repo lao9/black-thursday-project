@@ -1,8 +1,12 @@
 require 'pry'
 
 class MerchantRepository
-  def initialize(hash)
-    @mr_hash = hash
+  def initialize(raw_merchant_data, parent)
+    @mr_array = raw_merchant_data.map do |line|
+      Merchant.new(line, self)
+    end
+    binding.pry
+    @parent = parent
   end
 
   def all
@@ -10,7 +14,7 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    @mr_hash[id.to_s]
+    @mr_hash[id]
   end
 
   def find_by_name(name)
