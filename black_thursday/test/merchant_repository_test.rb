@@ -1,4 +1,5 @@
 require './lib/merchant_repository'
+require './lib/sales_engine'
 require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
@@ -6,6 +7,10 @@ require 'pry'
 class MerchantRepositoryTest < Minitest::Test
 
   def setup
+    se = SalesEngine.from_csv({
+      :items => "./test_fixtures/items_test_fixture.csv",
+      :merchants => "./test_fixtures/merchants_test_fixture.csv"
+      })
     @mr = se.merchants
   end
 
@@ -16,7 +21,6 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-skip
     assert_instance_of Merchant, @mr.find_by_id(12334105)
     assert_equal '12334105', @mr.find_by_id(12334105).id
     assert_equal 'Shopin1901', @mr.find_by_id(12334105).name
@@ -24,7 +28,6 @@ skip
   end
 
   def test_find_by_name
-skip
     assert_instance_of Merchant, @mr.find_by_name('Shopin1901')
     assert_equal '12334105', @mr.find_by_name('Shopin1901').id
     assert_equal 'Shopin1901', @mr.find_by_name('Shopin1901').name
@@ -33,9 +36,9 @@ skip
   end
 
   def test_find_all_by_name
-skip
     assert_equal [], @mr.find_all_by_name('poohead')
     assert_equal 3, @mr.find_all_by_name('shop').count
     assert_equal 3, @mr.find_all_by_name('SHOP').count
   end
+
 end
