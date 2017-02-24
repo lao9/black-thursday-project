@@ -23,9 +23,15 @@ class SalesAnalyst
     id_hash = Hash.new(0)
 
     id_array.each do |merchant_id|
-      binding.pry
-      id_hash[merchant_id] += @ir.find_by_id()
+      id_hash[merchant_id] += @mr.find_by_id(merchant_id).items.count
     end
+
+
+    next_hash = id_hash.group_by do |item|
+      item[1]
+    end
+
+    binding.pry
 
     # {12334105 => 0, 12334112 => 2, 12334257 => 0, 12334115 => 1}
     #
