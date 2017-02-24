@@ -15,7 +15,7 @@ attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :me
   end
 
   def unit_price_to_dollars
-    (@unit_price / 100).to_f
+    @unit_price.to_f
   end
 
   def merchants
