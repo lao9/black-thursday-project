@@ -16,7 +16,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_all
     assert_instance_of Array, @ir.all
-    assert_equal 5, @ir.all.count
+    assert_equal 7, @ir.all.count
     assert_instance_of Item, @ir.all.first
   end
 
@@ -46,16 +46,15 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_price
 
-    assert_equal [], @ir.find_all_by_price(2000)
-    assert_equal 2, @ir.find_all_by_price(5000).count
-    assert_equal 263395237, @ir.find_all_by_price(1200).first.id
-    assert_equal 'RealPush Icon Set', @ir.find_all_by_price(1200).first.name
+    assert_equal [], @ir.find_all_by_price(20)
+    assert_equal 2, @ir.find_all_by_price(50).count
+    assert_equal 263395237, @ir.find_all_by_price(12).first.id
+    assert_equal 'RealPush Icon Set', @ir.find_all_by_price(12).first.name
   end
 
   def test_find_all_by_price_in_range
-
-    assert_equal [], @ir.find_all_by_price_in_range(500..1000)
-    assert_equal 2, @ir.find_all_by_price_in_range(1000..4000).count
+    assert_equal [], @ir.find_all_by_price_in_range(5..10)
+    assert_equal 2, @ir.find_all_by_price_in_range(10..40).count
   end
 
   def test_find_all_by_merchant_id
