@@ -1,7 +1,7 @@
 require 'pry'
 
 class MerchantRepository
-
+  attr_reader :merchant_list, :parent
   def initialize(raw_merchant_data, parent)
     @merchant_list = raw_merchant_data.map { |line| Merchant.new(line, self) }
     @parent = parent
@@ -16,7 +16,6 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    binding.pry
     @merchant_list.find { |merchant| merchant.id == id }
   end
 

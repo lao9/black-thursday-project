@@ -2,7 +2,7 @@ require 'pry'
 require 'bigdecimal'
 
 class ItemRepository
-
+  attr_reader :item_list, :parent
   def initialize(raw_item_data, parent)
     @item_list = raw_item_data.map { |line| Item.new(line, self) }
     @parent = parent
@@ -24,7 +24,7 @@ class ItemRepository
     @item_list.find { |item| item.name.downcase == name.downcase }
   end
 
-  def find_all_by_description(description_snippet)
+  def find_all_with_description(description_snippet)
     @item_list.find_all do |item|
       item.description.downcase.include?(description_snippet.downcase)
     end
@@ -32,7 +32,7 @@ class ItemRepository
 
   def find_all_by_price(price)
     @item_list.find_all do |item|
-     item.unit_price == BigDecimal.new(price)
+     item.unit_price == price
    end
   end
 
