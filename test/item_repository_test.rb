@@ -39,9 +39,9 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_with_description
 
-    assert_equal [], @ir.find_all_by_description('poohead')
-    assert_equal 3, @ir.find_all_by_description('oil').count
-    assert_equal 3, @ir.find_all_by_description('OIL').count
+    assert_equal [], @ir.find_all_with_description('poohead')
+    assert_equal 3, @ir.find_all_with_description('oil').count
+    assert_equal 3, @ir.find_all_with_description('OIL').count
   end
 
   def test_find_all_by_price
