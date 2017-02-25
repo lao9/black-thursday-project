@@ -19,7 +19,7 @@ attr_reader :id, :name, :description, :unit_price, :created_at, :updated_at, :me
   end
 
   def merchant
-    @parent.parent.merchants.merchant_list.find_all do |merchant|
+    @parent.parent.merchants.merchant_list.find do |merchant|
       @merchant_id == merchant.id
     end
   end

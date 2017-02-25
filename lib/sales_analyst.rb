@@ -70,7 +70,7 @@ class SalesAnalyst
       sum + item.unit_price
     end
 
-    item_array.count.zero? ? 0 : (numerator / item_array.count)
+    item_array.count.zero? ? 0 : (numerator / item_array.count).round(2)
 
   end
 
@@ -83,7 +83,7 @@ class SalesAnalyst
   def average_average_price_per_merchant
     next_hash = merchant_grouper
     next_hash.delete(0)
-    average_price_sum / next_hash.values.flatten.count
+    (average_price_sum / next_hash.values.flatten.count).round(2)
   end
 
 

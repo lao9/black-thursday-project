@@ -39,7 +39,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_average_price_per_merchant
     assert_instance_of BigDecimal, @sa.average_average_price_per_merchant
-    assert_equal (BigDecimal(475625) / 1000), @sa.average_average_price_per_merchant
+    assert_equal (BigDecimal(47563) / 100), @sa.average_average_price_per_merchant
   end
 
   def test_golden_items
