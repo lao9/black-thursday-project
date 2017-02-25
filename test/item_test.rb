@@ -8,7 +8,7 @@ class ItemTest < Minitest::Test
 
   def setup
     @i = Item.new({
-      "id" => "123456789",
+      "id"          => "123456789",
       "merchant_id" => "987654321",
       "name"        => "Pencil",
       "description" => "You can use it to write things",
