@@ -7,9 +7,12 @@ require 'pry'
 class InvoiceRepositoryTest < Minitest::Test
 
   def setup
-    se = SalesEngine.from_csv(
-    {:invoices => "./test_fixtures/invoices_test_fixture.csv"})
-    @ivr = se.invoice
+    se = SalesEngine.from_csv({
+      :items => "./test_fixtures/items_test_fixture.csv",
+      :merchants => "./test_fixtures/merchants_test_fixture.csv",
+      :invoices => "./test_fixtures/invoices_test_fixture.csv"
+      })
+    @ivr = se.invoices
   end
 
   def test_all
