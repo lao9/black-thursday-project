@@ -48,7 +48,6 @@ class SalesAnalyst
           (num - mean) ** 2
         end
 
-        binding.pry
 
       final_total = ((std_sum / 2) ** (1/2)).round(3)
 
