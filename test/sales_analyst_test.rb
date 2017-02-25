@@ -22,6 +22,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1.5, @sa.average_items_per_merchant
   end
 
+  def test_it_returns_a_standard_dev
+    assert_equal 0.83, @sa.average_items_per_merchant_standard_deviation
+  end
+
 
 # Then ask/answer these questions:
 #
