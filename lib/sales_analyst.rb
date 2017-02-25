@@ -40,20 +40,11 @@ class SalesAnalyst
 
     mean = total.to_f / (item_merchant_array.count)
 
-      # total / set.count  => our mean 3 / 6 = 0.5
+    std_sum = item_merchant_array.reduce(0) do |sum, num|
+        sum + ((num - mean) ** 2)
+    end
 
-      # sqrt( ( (0-mean)^2+(4-4)^2+(5-4)^2 ) / 2 )
-
-      std_sum = item_merchant_array.reduce(0) do |sum, num|
-          (num - mean) ** 2
-        end
-
-        binding.pry
-
-      final_total = ((std_sum / 2) ** (1/2)).round(3)
-
-
-    # std_dev = sqrt( ( (3-4)^2+(4-4)^2+(5-4)^2 ) / 2 )
+    final_total = (Math.sqrt(std_sum / (item_merchant_array.count - 1))).round(2)
   end
 
 end
