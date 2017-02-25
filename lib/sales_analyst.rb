@@ -7,51 +7,53 @@ class SalesAnalyst
     @ir = se.items
   end
 
-  def average_items_per_merchant
-    # sum of items
-    # divided by merchants
-    # cadisart has 2 items
-    # Lola Marleys has 1 item
-    # 3 items divided 2 = 1.5
-
-    # array of merchant ids
-
+  def merchant_grouper
     id_array = @mr.merchant_list.map {|merchant| merchant.id}
-    # [12334105, 12334112, 12334257, 12334113, 12334115, 12334176]
 
-    next_hash = id_array.group_by do |merchant_id|
+    id_array.group_by do |merchant_id|
       @mr.find_by_id(merchant_id).items.count
     end
 
+  end
 
-
-    # {12334105 => 0, 12334112 => 2, 12334257 => 0, 12334115 => 1}
-    #
-    # {0 => [], 1 => [12334115], 2 => [12334112]}
-    #
-    # # remove 0 key from hash
-    next_hash.delete(0)
-
-    # hey = {1 => [12334115], 2 => [12334112]}
-
-    # enumerable?
-
-    total = next_hash.keys.reduce(0) do |sum, quantity|
-      sum + (quantity * next_hash[quantity].count)
+  def item_merchant_array
+    total = merchant_grouper.map do |key, value|
+      Array.new(value.count, key)
     end
+    total.flatten
+  end
 
+  def total
+    item_merchant_array.reduce(0) do |sum, num|
+        sum + num
+    end
+  end
 
-
+  def average_items_per_merchant
+    next_hash = merchant_grouper
+    next_hash.delete(0)
     divisor = next_hash.values.flatten.count.to_f
+    (total / divisor).round(2)
+  end
 
-    total / divisor
-    # hey.values = [[12334115], [12334112]].flatten
-    #
-    # count of flattened arrays = 2
-    #
-    # 3 / 2 = 1.5
+  def average_items_per_merchant_standard_deviation
+
+    mean = total.to_f / (item_merchant_array.count)
+
+      # total / set.count  => our mean 3 / 6 = 0.5
+
+      # sqrt( ( (0-mean)^2+(4-4)^2+(5-4)^2 ) / 2 )
+
+      std_sum = item_merchant_array.reduce(0) do |sum, num|
+          (num - mean) ** 2
+        end
+
+        binding.pry
+
+      final_total = ((std_sum / 2) ** (1/2)).round(3)
 
 
+    # std_dev = sqrt( ( (3-4)^2+(4-4)^2+(5-4)^2 ) / 2 )
   end
 
 end
