@@ -14,6 +14,9 @@ class Invoice
   end
 
   def merchant
+    @parent.parent.merchants.merchant_list.find do |merchant|
+      @merchant_id == merchant.id
+    end
   end
 
 end

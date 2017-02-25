@@ -14,7 +14,7 @@ class InvoiceTest < Minitest::Test
       "status"      => "pending",
       "created_at"  => "1980-11-23 09:11:30 UTC",
       "updated_at"  => "1980-11-23 09:11:30 UTC",
-      }, "parent")
+      }, "parents")
   end
 
   def test_it_exists
