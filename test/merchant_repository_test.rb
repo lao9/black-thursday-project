@@ -16,7 +16,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_all
     assert_instance_of Array, @mr.all
-    assert_equal 6, @mr.all.count
+    assert_equal 8, @mr.all.count
     assert_instance_of Merchant, @mr.all.first
   end
 

@@ -31,8 +31,7 @@ class SalesEngineTest < Minitest::Test
   def test_item_to_merchant_relationship
     item = @se.items.find_by_id(263399954)
     assert_instance_of Item, item
-    assert_equal 1, item.merchants.count
-    assert_equal "Candisart", item.merchants.first.name
+    assert_equal "Candisart", item.merchant.name
   end
 
 end
