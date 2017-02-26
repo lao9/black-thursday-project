@@ -21,7 +21,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_id
-
     assert_instance_of Item, @ir.find_by_id(263395237)
     assert_equal 263395237, @ir.find_by_id(263395237).id
     assert_equal 'RealPush Icon Set', @ir.find_by_id(263395237).name
@@ -29,7 +28,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name
-
     assert_instance_of Item, @ir.find_by_name('RealPush Icon Set')
     assert_equal 263395237, @ir.find_by_name('RealPush Icon Set').id
     assert_equal 'RealPush Icon Set', @ir.find_by_name('RealPush Icon Set').name
@@ -38,7 +36,6 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_find_all_with_description
-
     assert_equal [], @ir.find_all_with_description('poohead')
     assert_equal 3, @ir.find_all_with_description('oil').count
     assert_equal 3, @ir.find_all_with_description('OIL').count
