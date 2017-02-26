@@ -17,32 +17,29 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_all
     assert_instance_of Array, @ivr.all
-    assert_equal 0, @mr.all.count
+    assert_equal 10, @ivr.all.count
     assert_instance_of Invoice, @ivr.all.first
   end
 
   def test_find_by_id
-skip
     assert_instance_of Invoice, @ivr.find_by_id(1)
     assert_equal 1, @ivr.find_by_id(1).id
     assert_nil @ivr.find_by_id(10000)
   end
 
   def test_find_all_by_customer_id
-skip
-    assert_equal [], @ivr.find_all_by_customer_id('1')
-    assert_equal 8, @ivr.find_all_by_customer_id('1').count
+    assert_instance_of Array, @ivr.find_all_by_customer_id(1)
+    assert_equal 8, @ivr.find_all_by_customer_id(1).count
   end
 
   def test_find_all_by_merchant_id
-skip
-    assert_equal [], @ivr.find_all_by_merchant_id
-    assert_equal 1, @ivr.find_all_by_customer_id('	12335938').count
+    assert_equal [], @ivr.find_all_by_merchant_id(000000)
+    assert_equal 1, @ivr.find_all_by_merchant_id(12335938).count
   end
 
   def test_find_all_by_status
-    skip
-    assert_equal [], @ivr.find_all_by_status
-    assert_equal 5, @ivr.find_all_by_status.count
+    assert_instance_of Array, @ivr.find_all_by_status("pending")
+    assert_equal [], @ivr.find_all_by_status("returned")
+    assert_equal 6, @ivr.find_all_by_status("pending").count
   end
 end

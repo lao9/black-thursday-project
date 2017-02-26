@@ -34,4 +34,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal "Candisart", item.merchant.name
   end
 
+  def test_invoice_to_merchant_relationship
+    invoice = @se.invoices.find_by_id(1)
+    assert_instance_of Invoice, invoice
+    assert_equal "NatalieWoolSocks", invoice.merchant.name
+  end
+
+  def test_merchant_to_invoice_relationship
+    merchant = @se.merchants.find_by_id(12334178)
+    assert_instance_of Merchant, merchant
+    assert_equal 1, merchant.invoices.count
+    assert_equal 1, merchant.invoices.first.id
+  end
 end
