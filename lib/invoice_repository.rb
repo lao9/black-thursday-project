@@ -7,10 +7,9 @@ class InvoiceRepository
     @invoice_list = raw_invoice_data.map { |line| Invoice.new(line, self) }
     @parent = parent
   end
-# binding.pry
 
   def inspect
-   "#<#{self.class} #{@merchants.size} rows>"
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all

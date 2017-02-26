@@ -44,7 +44,7 @@ class SalesEngineTest < Minitest::Test
   def test_merchant_to_invoice_relationship
     merchant = @se.merchants.find_by_id(12334178)
     assert_instance_of Merchant, merchant
-    assert_equal 1, merchant.invoices.count
+    assert_equal 40, merchant.invoices.count
     assert_equal 1, merchant.invoices.first.id
   end
 end
