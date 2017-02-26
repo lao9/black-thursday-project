@@ -15,4 +15,10 @@ attr_reader :name, :id
     end
   end
 
+  def invoices
+    @parent.parent.invoices.invoice_list.find_all do |invoice|
+      invoice.merchant_id == @id
+    end
+  end
+
 end
