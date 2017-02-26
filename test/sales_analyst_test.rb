@@ -50,11 +50,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_average_invoices_per_merchant
-    assert_equal 12.0, @sa.average_invoices_per_merchant
+    assert_equal 12.63, @sa.average_invoices_per_merchant
   end
 
   def test_standard_deviation_invoices_per_merchant
-    assert_equal 11.53, @sa.average_invoices_per_merchant_standard_deviation
+    assert_equal 11.51, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_it_returns_top_performers
