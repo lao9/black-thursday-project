@@ -48,5 +48,6 @@ class SalesAnalystTest < Minitest::Test
     assert_equal "Baby Goats in PJs", @sa.golden_items.first.name
   end
 
+  
 
 end
