@@ -1,3 +1,4 @@
+require_relative '../test/test_setup'
 require_relative '../lib/merchant_repository'
 require_relative '../lib/sales_engine'
 require 'minitest/autorun'
@@ -6,12 +7,10 @@ require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
 
+  include TestSetup
+
   def setup
-    se = SalesEngine.from_csv({
-      :items => "./test_fixtures/items_test_fixture.csv",
-      :merchants => "./test_fixtures/merchants_test_fixture.csv",
-      :invoices => "./test_fixtures/invoices_test_fixture.csv"
-      })
+    se = sales_engine_setup
     @mr = se.merchants
   end
 
