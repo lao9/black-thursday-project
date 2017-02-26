@@ -23,7 +23,7 @@ class InvoiceRepository
 
   def find_all_by_customer_id(customer_id)
     @invoice_list.find_all do |item|
-     item.customer_id == id
+     item.customer_id == customer_id
    end
   end
 
