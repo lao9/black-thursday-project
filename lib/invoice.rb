@@ -8,8 +8,8 @@ class Invoice
     @customer_id = invoice_data["customer_id"].to_i
     @merchant_id = invoice_data["merchant_id"].to_i
     @status = invoice_data["status"]
-    @created_at = Time.parse(invoice_data["created_at"])
-    @updated_at = Time.parse(invoice_data["updated_at"])
+    @created_at = Time.strptime(invoice_data["created_at"], "%m/%d/%y")
+    @updated_at = Time.strptime(invoice_data["updated_at"], "%m/%d/%y")
     @parent = parent
   end
 
