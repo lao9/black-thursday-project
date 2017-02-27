@@ -27,21 +27,18 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_find_by_invoice_id
-    skip
-    assert_instance_of Array, @tr.find_by_invoice_id(2179)
-    assert_equal 1, @tr.find_by_invoice_id(2179).count
+    assert_instance_of Array, @tr.find_all_by_invoice_id(2179)
+    assert_equal 1, @tr.find_all_by_invoice_id(2179).count
   end
 
   def test_find_all_by_credit_card_number
-    skip
-    assert_nil @tr.find_all_by_credit_card_number(000000)
-    assert_equal 1, @tr.find_all_by_credit_card_number(4068631943231470)
+    assert_equal [], @tr.find_all_by_credit_card_number(000000)
+    assert_equal 1, @tr.find_all_by_credit_card_number(4068631943231470).count
   end
 
   def test_find_all_by_result
-    skip
-    assert_equal [], @tr.find_all_by_result(000000)
-    assert_equal 1, @tr.find_all_by_result("success")
+    assert_equal [], @tr.find_all_by_result("something")
+    assert_equal 77, @tr.find_all_by_result("success").count
   end
 
 end
