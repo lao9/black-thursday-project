@@ -19,4 +19,12 @@ class Invoice
     end
   end
 
+  def items
+    invoice_items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
+    invoice_item_ids = invoice_items.map {|item| item.item_id}
+    invoice_item_ids.map do |id|
+      @parent.parent.items.find_by_id(id)
+    end
+  end
+
 end

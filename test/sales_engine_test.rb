@@ -45,4 +45,19 @@ class SalesEngineTest < Minitest::Test
     assert_equal 40, merchant.invoices.count
     assert_equal 1, merchant.invoices.first.id
   end
+
+  def test_invoice_to_items_relationship
+    invoice = @se.invoices.find_by_id(20)
+    assert_instance_of Invoice, invoice
+    assert_instance_of Array, invoice.items
+    assert_equal 3, invoice.items.count
+    assert_instance_of Item, invoice.items.first
+    assert_equal 263523156, invoice.items.first.id
+    assert_equal 263406625, invoice.items.last.id
+  end
+
+  def test_invoice_to_transactions_relationship
+    invoice.transactions # => [transaction, transaction]
+  end
+
 end
