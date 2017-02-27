@@ -21,4 +21,12 @@ attr_reader :name, :id
     end
   end
 
+  def customers
+    invoices = @parent.parent.invoices.find_all_by_merchant_id(@id)
+    invoice_customer_ids = invoices.map {|item| item.customer_id}.uniq
+    invoice_customer_ids.map do |id|
+      @parent.parent.customers.find_by_id(id)
+    end
+  end
+
 end
