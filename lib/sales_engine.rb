@@ -10,9 +10,11 @@ require_relative '../lib/transaction'
 require_relative '../lib/transaction_repository'
 require_relative '../lib/invoice_item'
 require_relative '../lib/invoice_item_repository'
+require_relative '../lib/customer'
+require_relative '../lib/customer_repository'
 
 class SalesEngine
-  attr_reader :merchant_raw_data, :item_raw_data, :invoice_raw_data, :invoice_item_raw_data, :items, :merchants, :invoices, :invoice_items,:transactions, :transaction_raw_data
+  attr_reader :merchant_raw_data, :item_raw_data, :invoice_raw_data, :invoice_item_raw_data, :transaction_raw_data, :customer_raw_data, :items, :merchants, :invoices, :invoice_items,:transactions, :customers
 
   def initialize(paths)
     @merchant_raw_data = CSV.open(paths[:merchants], headers: true)
@@ -20,6 +22,7 @@ class SalesEngine
     @invoice_raw_data = CSV.open(paths[:invoices], headers: true)
     @transaction_raw_data = CSV.open(paths[:transactions], headers: true)
     @invoice_item_raw_data = CSV.open(paths[:invoice_items], headers: true)
+    @customer_raw_data = CSV.open(paths[:customers], headers: true)
   end
 
   def self.from_csv(paths)
@@ -45,4 +48,9 @@ class SalesEngine
   def transactions
     @transactions ||= TransactionRepository.new(transaction_raw_data, self)
   end
+
+  def customers
+    @customers ||= CustomerRepository.new(customer_raw_data, self)
+  end
+
 end

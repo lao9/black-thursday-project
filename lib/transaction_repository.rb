@@ -21,16 +21,16 @@ class TransactionRepository
     @transaction_list.find { |item| item.id == id }
   end
 
-  def find_by_invoice_id(invoice_id)
-    @transaction_list.find { |item| item.invoice_id == invoice_id }
+  def find_all_by_invoice_id(invoice_id)
+    @transaction_list.find_all { |item| item.invoice_id == invoice_id }
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    @transaction_list.find { |item| item.credit_card_number == credit_card_number }
+    @transaction_list.find_all { |item| item.credit_card_number == credit_card_number }
   end
 
   def find_all_by_result(result)
-    @transaction_list.find_all do |item|
+    hey = @transaction_list.find_all do |item|
       item.result == result
     end
   end
