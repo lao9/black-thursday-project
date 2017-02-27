@@ -5,7 +5,9 @@ class TransactionRepository
   attr_reader :transaction_list, :parent
 
   def initialize(raw_transaction_data, parent)
-    @transaction_list = raw_transaction_data.map { |line| Transaction.new(line, self) }
+    @transaction_list = raw_transaction_data.map do |line|
+      Transaction.new(line, self)
+    end
     @parent = parent
   end
 
@@ -26,7 +28,9 @@ class TransactionRepository
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    @transaction_list.find_all { |item| item.credit_card_number == credit_card_number }
+    @transaction_list.find_all do |item|
+      item.credit_card_number == credit_card_number
+    end
   end
 
   def find_all_by_result(result)

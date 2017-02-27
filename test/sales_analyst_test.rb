@@ -20,7 +20,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average
-    assert_equal 4.25, @sa.average_items_per_merchant
+    assert_equal 2.13, @sa.average_items_per_merchant
   end
 
   def test_it_returns_a_standard_dev
