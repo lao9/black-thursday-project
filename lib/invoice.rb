@@ -1,5 +1,6 @@
 require 'pry'
 require 'time'
+require 'bigdecimal'
 
 class Invoice
   attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
@@ -34,4 +35,22 @@ class Invoice
   def customer
     @parent.parent.customers.find_by_id(@customer_id)
   end
+
+  def is_paid_in_full?
+    transactions = @parent.parent.transactions.find_all_by_invoice_id(@id)
+    results = transactions.map {|transaction| transaction.result}
+    !(results.empty? || results.include?("failed"))
+  end
+
+  def total
+    if is_paid_in_full?
+      invoice_items = @parent.parent.invoice_items.find_all_by_invoice_id(@id)
+      invoice_items.reduce(0) do |sum, item|
+        sum + (item.quantity * item.unit_price)
+      end
+    else
+      BigDecimal(0)
+    end
+  end
+
 end
