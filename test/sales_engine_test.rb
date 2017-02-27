@@ -57,7 +57,17 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_invoice_to_transactions_relationship
-    invoice.transactions # => [transaction, transaction]
+    invoice = @se.invoices.find_by_id(14)
+    assert_instance_of Array, invoice.transactions
+    assert_equal 1, invoice.transactions.count
+    assert_equal 40, invoice.transactions.first.id
+  end
+
+  def test_invoice_to_customers_relationship
+    invoice = @se.invoices.find_by_id(14)
+    assert_instance_of Customer, invoice.customer
+    assert_equal 2, invoice.customer.id
+    assert_equal "Osinski", invoice.customer.last_name
   end
 
 end
