@@ -16,12 +16,11 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_all
       assert_instance_of Array, @tr.all
-      assert_equal 100, @tr.all.count
+      assert_equal 99, @tr.all.count
       assert_instance_of Transaction, @tr.all.first
   end
 
   def test_find_by_id
-    skip
     assert_instance_of Transaction, @tr.find_by_id(1)
     assert_equal 1, @tr.find_by_id(1).id
     assert_nil @tr.find_by_id(000000)
@@ -35,7 +34,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_find_all_by_credit_card_number
     skip
-    assert_equal [], @tr.find_all_by_credit_card_number(000000)
+    assert_nil @tr.find_all_by_credit_card_number(000000)
     assert_equal 1, @tr.find_all_by_credit_card_number(4068631943231470)
   end
 
