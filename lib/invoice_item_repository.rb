@@ -5,7 +5,9 @@ require 'time'
 class InvoiceItemRepository
   attr_reader :invoice_item_list, :parent
   def initialize(raw_invoice_item_data, parent)
-    @invoice_item_list = raw_invoice_item_data.map { |line| InvoiceItem.new(line, self) }
+    @invoice_item_list = raw_invoice_item_data.map do |line|
+      InvoiceItem.new(line, self)
+    end
     @parent = parent
   end
 

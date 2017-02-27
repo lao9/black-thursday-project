@@ -14,7 +14,9 @@ require_relative '../lib/customer'
 require_relative '../lib/customer_repository'
 
 class SalesEngine
-  attr_reader :merchant_raw_data, :item_raw_data, :invoice_raw_data, :invoice_item_raw_data, :transaction_raw_data, :customer_raw_data, :items, :merchants, :invoices, :invoice_items,:transactions, :customers
+  attr_reader :merchant_raw_data, :item_raw_data, :invoice_raw_data,
+  :invoice_item_raw_data, :transaction_raw_data, :customer_raw_data, :items,
+  :merchants, :invoices, :invoice_items,:transactions, :customers
 
   def initialize(paths)
     @merchant_raw_data = CSV.open(paths[:merchants], headers: true)
