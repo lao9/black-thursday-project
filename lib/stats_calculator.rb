@@ -5,7 +5,7 @@ module StatsCalculator
     (list_sum.to_f / divisor).round(2)
   end
 
-  def standard_deviation(set, average)
+  def standard_deviation(set, average=calculate_average(set))
     std_sum = set.reduce(0) do |sum, num|
         sum + ((num - average) ** 2)
     end

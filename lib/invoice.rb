@@ -39,7 +39,7 @@ class Invoice
   def is_paid_in_full?
     transactions = @parent.parent.transactions.find_all_by_invoice_id(@id)
     results = transactions.map {|transaction| transaction.result}
-    !(results.empty? || results.include?("failed"))
+    (!results.empty? && results.include?("success"))
   end
 
   def total
