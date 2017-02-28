@@ -1,10 +1,4 @@
-require_relative '../test/test_setup'
-require_relative '../lib/sales_engine'
-require_relative '../lib/sales_analyst'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'bigdecimal'
-require 'pry'
+require_relative '../test/test_helper'
 
 class SalesAnalystTest < Minitest::Test
 

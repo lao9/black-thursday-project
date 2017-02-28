@@ -23,7 +23,7 @@ class SalesAnalyst
     @ivr = se.invoices
     @invoice_total = invoices_per_merchant_list(merchant_id_list)
     @invoice_mean = calculate_average(invoice_total)
-    @invoice_std = standard_deviation(invoice_total, invoice_mean)
+    @invoice_std = standard_deviation(invoice_total)
   end
 
 end

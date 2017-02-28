@@ -1,8 +1,4 @@
-require_relative '../lib/customer'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'bigdecimal'
-require 'pry'
+require_relative '../test/test_helper'
 
 class CustomerTest < Minitest::Test
 

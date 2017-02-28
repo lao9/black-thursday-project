@@ -1,9 +1,4 @@
-require_relative '../test/test_setup'
-require_relative '../lib/sales_engine'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry'
-
+require_relative '../test/test_helper'
 
 class SalesEngineTest < Minitest::Test
   include TestSetup
@@ -68,6 +63,32 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Customer, invoice.customer
     assert_equal 2, invoice.customer.id
     assert_equal "Osinski", invoice.customer.last_name
+  end
+
+  def test_transaction_to_invoice_relationship
+    transaction = @se.transactions.find_by_id(40)
+    assert_instance_of Transaction, transaction
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 14, transaction.invoice.id
+  end
+
+  def test_merchant_to_customer_relationship
+    merchant = @se.merchants.find_by_id(12334178)
+    assert_instance_of Merchant, merchant
+    assert_instance_of Array, merchant.customers
+    assert_equal 5, merchant.customers.count
+    assert_instance_of Customer, merchant.customers.first
+    assert_equal 1, merchant.customers.first.id
+    assert_equal "Ondricka", merchant.customers.first.last_name
+  end
+
+  def test_customer_to_merchant_relationship
+    customer = @se.customers.find_by_id(1)
+    assert_instance_of Customer, customer
+    assert_instance_of Array, customer.merchants
+    assert_equal 3, customer.merchants.count
+    assert_instance_of Merchant, customer.merchants.first
+    assert_equal 12334178, customer.merchants.first.id
   end
 
 end

@@ -1,20 +1,35 @@
-require_relative '../lib/invoice'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'bigdecimal'
-require 'pry'
+require_relative '../test/test_helper'
 
 class InvoiceTest < Minitest::Test
 
+  include TestSetup
+
   def setup
+    @se = sales_engine_setup
     @in = Invoice.new({
-      "id"          => "6",
+      "id"          => "46",
       "customer_id" => "7",
       "merchant_id" => "8",
       "status"      => "pending",
       "created_at"  => "1980-11-23 09:11:30 UTC",
       "updated_at"  => "1980-11-23 09:11:30 UTC",
-      }, "parents")
+      }, @se.invoices)
+    @in2 = Invoice.new({
+      "id"          => "1752",
+      "customer_id" => "7",
+      "merchant_id" => "8",
+      "status"      => "pending",
+      "created_at"  => "1980-11-23 09:11:30 UTC",
+      "updated_at"  => "1980-11-23 09:11:30 UTC",
+      }, @se.invoices)
+    @in3 = Invoice.new({
+      "id"          => "1",
+      "customer_id" => "7",
+      "merchant_id" => "8",
+      "status"      => "pending",
+      "created_at"  => "1980-11-23 09:11:30 UTC",
+      "updated_at"  => "1980-11-23 09:11:30 UTC",
+      }, @se.invoices)
   end
 
   def test_it_exists
@@ -22,7 +37,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_returns_id
-    assert_equal 6, @in.id
+    assert_equal 46, @in.id
   end
 
   def test_it_returns_customer_id
@@ -47,5 +62,15 @@ class InvoiceTest < Minitest::Test
     assert_instance_of Time, @in.updated_at
   end
 
+  def test_if_invoice_is_paid_in_full
+    assert @in.is_paid_in_full?
+    refute @in2.is_paid_in_full?
+    refute @in3.is_paid_in_full?
+  end
+
+  def test_it_returns_total
+    assert_instance_of BigDecimal, @in.total
+    assert_equal 5149.76, @in.total.to_f
+  end
 
 end

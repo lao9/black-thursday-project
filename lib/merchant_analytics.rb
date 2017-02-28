@@ -1,4 +1,4 @@
-module MerchantAnalytics
+ module MerchantAnalytics
 
   include StatsCalculator
 
@@ -17,8 +17,7 @@ module MerchantAnalytics
   end
 
   def average_items_per_merchant_standard_deviation
-    mean = average_items_per_merchant
-    standard_deviation(items_per_merchant_list, mean)
+    standard_deviation(items_per_merchant_list)
   end
 
   def merchants_with_high_item_count
