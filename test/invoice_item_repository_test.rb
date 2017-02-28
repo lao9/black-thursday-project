@@ -1,9 +1,4 @@
-require_relative '../test/test_setup'
-require_relative '../lib/sales_engine'
-require_relative '../lib/invoice_repository'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry'
+require_relative '../test/test_helper'
 
 class InvoiceItemRepositoryTest < Minitest::Test
   include TestSetup

@@ -1,7 +1,4 @@
-require_relative '../lib/merchant'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry'
+require_relative '../test/test_helper'
 
 class MerchantTest < Minitest::Test
 

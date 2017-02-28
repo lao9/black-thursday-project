@@ -1,8 +1,4 @@
-require_relative '../lib/item'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'bigdecimal'
-require 'pry'
+require_relative '../test/test_helper'
 
 class ItemTest < Minitest::Test
 

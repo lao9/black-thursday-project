@@ -1,9 +1,4 @@
-require_relative '../test/test_setup'
-require_relative '../lib/merchant_repository'
-require_relative '../lib/sales_engine'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry'
+require_relative '../test/test_helper'
 
 class MerchantRepositoryTest < Minitest::Test
 

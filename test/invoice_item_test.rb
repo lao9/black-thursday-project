@@ -1,7 +1,4 @@
-require_relative '../lib/invoice_item'
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'pry'
+require_relative '../test/test_helper'
 
 class InvoiceItemTest < Minitest::Test
   def setup
