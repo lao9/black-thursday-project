@@ -14,11 +14,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_returns_average
-    assert_equal 2.13, @sa.average_items_per_merchant
+    assert_equal 2.63, @sa.average_items_per_merchant
   end
 
   def test_it_returns_a_standard_dev
-    assert_equal 3.48, @sa.average_items_per_merchant_standard_deviation
+    assert_equal 3.16, @sa.average_items_per_merchant_standard_deviation
   end
 
   def test_merchants_with_high_item_count
@@ -33,7 +33,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_average_average_price_per_merchant
     assert_instance_of BigDecimal, @sa.average_average_price_per_merchant
-    assert_equal (BigDecimal(47563) / 100), @sa.average_average_price_per_merchant
+    assert_equal (BigDecimal(25556) / 100), @sa.average_average_price_per_merchant
   end
 
   def test_golden_items

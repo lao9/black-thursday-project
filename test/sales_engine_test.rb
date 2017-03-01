@@ -47,8 +47,8 @@ class SalesEngineTest < Minitest::Test
     assert_instance_of Array, invoice.items
     assert_equal 3, invoice.items.count
     assert_instance_of Item, invoice.items.first
-    assert_equal 263523156, invoice.items.first.id
-    assert_equal 263406625, invoice.items.last.id
+    assert_equal 263399962, invoice.items.first.id
+    assert_equal 263399964, invoice.items.last.id
   end
 
   def test_invoice_to_transactions_relationship

@@ -50,8 +50,8 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id
     assert_equal [], @ir.find_all_by_merchant_id(00000000)
-    assert_equal 1, @ir.find_all_by_merchant_id(12334141).count
-    assert_equal 263395237, @ir.find_all_by_merchant_id(12334141).first.id
-    assert_equal 'RealPush Icon Set', @ir.find_all_by_merchant_id(12334141).first.name
+    assert_equal 1, @ir.find_all_by_merchant_id(12334105).count
+    assert_equal 263395237, @ir.find_all_by_merchant_id(12334105).first.id
+    assert_equal 'RealPush Icon Set', @ir.find_all_by_merchant_id(12334105).first.name
   end
 end
