@@ -9,7 +9,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_all
     assert_instance_of Array, @iir.all
-    assert_equal 100, @iir.all.count
+    assert_equal 116, @iir.all.count
     assert_instance_of InvoiceItem, @iir.all.first
   end
 
@@ -22,7 +22,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_find_all_by_item_id
     assert_instance_of Array, @iir.find_all_by_item_id(263399956)
-    assert_equal 5, @iir.find_all_by_item_id(263399956).count
+    assert_equal 6, @iir.find_all_by_item_id(263399956).count
     assert_equal 8, @iir.find_all_by_item_id(263399956).first.id
     assert_equal [], @iir.find_all_by_item_id(00000)
   end
