@@ -70,7 +70,7 @@ class InvoiceTest < Minitest::Test
 
   def test_it_returns_total
     assert_instance_of BigDecimal, @in.total
-    assert_equal 5149.76, @in.total.to_f
+    assert_equal 7754.76, @in.total.to_f
   end
 
 end
