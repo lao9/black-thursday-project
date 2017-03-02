@@ -95,23 +95,21 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
     assert_equal 1, @sa.customers_with_unpaid_invoices.first.id
   end
-  #
-  # def test_best_invoice_by_revenue
-  #   skip
-  #   # look up max revenue (price * quantity) in invoice_items
-  #   # return an invoice_id = 7
-  #   # look up the invoice object for that id (findy by id)
-  #   assert_instance_of Invoice, @sa.best_invoice_by_revenue
-  #   assert_equal 7, @sa.best_invoice_by_revenue.id
-  # end
-  #
-  # def test_best_invoice_by_quantity
-  #   skip
-  #   # max by quantity in invoice_items
-  #   # return invoice_id = 17
-  #   # look up the invoice object for that id (findy by id)
-  #   assert_instance_of Invoice, @sa.best_invoice_by_quantity
-  #   assert_equal 17, @sa.best_invoice_by_quantity.id
-  # end
+
+  def test_best_invoice_by_revenue
+    # look up max revenue (price * quantity) in invoice_items
+    # return an invoice_id = 7
+    # look up the invoice object for that id (findy by id)
+    assert_instance_of Invoice, @sa.best_invoice_by_revenue
+    assert_equal 17, @sa.best_invoice_by_revenue.id
+  end
+
+  def test_best_invoice_by_quantity
+    # max by quantity in invoice_items
+    # return invoice_id = 17
+    # look up the invoice object for that id (findy by id)
+    assert_instance_of Invoice, @sa.best_invoice_by_quantity
+    assert_equal 17, @sa.best_invoice_by_quantity.id
+  end
 
 end
