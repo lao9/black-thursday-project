@@ -26,19 +26,18 @@ class CustomerAnalyticsTest < Minitest::Test
   #   assert_equal 1, @sa.top_buyers.last.id
   # end
 
-  def test_it_returns_the_top_merchant
-    assert_instance_of Merchant, @sa.top_merchant_for_customer(100)
-    assert_equal 12336753, @sa.top_merchant_for_customer(100).id
-    #assert_equal "NatalieWoolSocks", @sa.top_merchant_for_customer(1).name
-  end
-
-  # def test_it_returns_one_time_buyers
-  #   skip
-  #   assert_instance_of Array, @sa.one_time_buyers
-  #   assert_equal 1, @sa.one_time_buyers.count
-  #   assert_instance_of Customer, @sa.one_time_buyers.first
-  #   assert_equal 6, @sa.one_time_buyers.first.id
+  # def test_it_returns_the_top_merchant
+  #   assert_instance_of Merchant, @sa.top_merchant_for_customer(100)
+  #   assert_equal 12336753, @sa.top_merchant_for_customer(100).id
+  #   #assert_equal "NatalieWoolSocks", @sa.top_merchant_for_customer(1).name
   # end
+
+  def test_it_returns_one_time_buyers
+    assert_instance_of Array, @sa.one_time_buyers
+    assert_equal 150, @sa.one_time_buyers.count
+    assert_instance_of Customer, @sa.one_time_buyers.first
+    #assert_equal 6, @sa.one_time_buyers.first.id
+  end
   #
   # def test_one_time_buyer_item
   #   skip
