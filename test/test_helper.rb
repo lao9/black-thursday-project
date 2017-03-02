@@ -31,4 +31,15 @@ module TestSetup
       })
   end
 
+  def alternative_sales_engine_setup
+    SalesEngine.from_csv({
+      :items => "../black_thursday_spec_harness/csvs/items.csv",
+      :merchants => "../black_thursday_spec_harness/csvs/merchants.csv",
+      :invoices => "../black_thursday_spec_harness/csvs/invoices.csv",
+      :invoice_items => "../black_thursday_spec_harness/csvs/invoice_items.csv",
+      :transactions => "../black_thursday_spec_harness/csvs/transactions.csv",
+      :customers => "../black_thursday_spec_harness/csvs/customers.csv"
+      })
+  end
+
 end
