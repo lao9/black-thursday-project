@@ -165,10 +165,12 @@ module CustomerAnalytics
     invoice_items = ivr.parent.invoice_items.invoice_item_list
 
     revenue_items = invoice_items.map do |invoice_item|
-      (invoice_item.quantity * invoice_item.unit_price)
+      if ivr.find_by_id(invoice_item.invoice_id).is_paid_in_full?
+        (invoice_item.quantity * invoice_item.unit_price)
+      end
     end
 
-    revenue_hash = revenue_items.each.with_index.reduce(Hash.new(0)) do |sum, (money, index)|
+    revenue_hash = revenue_items.compact.each.with_index.reduce(Hash.new(0)) do |sum, (money, index)|
       sum[invoice_items[index]] += money
       sum
     end
@@ -194,11 +196,37 @@ module CustomerAnalytics
   end
 
   def best_invoice_by_quantity
-    invoice_items = ivr.parent.invoice_items.invoice_item_list.max_by do |invoice_item|
-      invoice_item.quantity
+
+    invoice_items = ivr.parent.invoice_items.invoice_item_list
+
+    quantity_items = invoice_items.map do |invoice_item|
+      # if ivr.find_by_id(invoice_item.invoice_id).is_paid_in_full?
+        invoice_item.quantity
+      # end
     end
 
-    ivr.find_by_id(invoice_items.invoice_id)
+    quantity_items = quantity_items.compact
+
+    quantity_hash = quantity_items.each.with_index.reduce(Hash.new(0)) do |sum, (quantity, index)|
+      sum[ivr.find_by_id(invoice_items[index].invoice_id)] += quantity
+      sum
+    end
+
+
+    loop do
+      output = quantity_hash.max_by do |invoice_item, quantity|
+        quantity
+      end
+
+      if output[0].is_paid_in_full? == false
+        quantity_hash.delete(output[0])
+      else
+        break
+      end
+    end
+
+    output[0]
+
   end
 
 end
