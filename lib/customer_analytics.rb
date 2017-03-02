@@ -28,7 +28,6 @@ module CustomerAnalytics
 
   def top_merchant_for_customer(customer_id)
 
-
     invoices = mr.parent.invoices.find_all_by_customer_id(customer_id)
 
     valid_invoices_v2 = invoices.find_all { |invoice| invoice.is_paid_in_full? }
@@ -43,25 +42,35 @@ module CustomerAnalytics
       end
     end
 
-    # hey = valid_invoices.map.with_index do |invoice, index|
-    #   if customer_list[index].id == customer_id
-    #     mr.find_by_id(mr.parent.items.find_by_id(valid_invoices.first.item_id).merchant_id)
-    #   end
-    # end
-    #
-    # heyo = hey.compact
     meh = merchant_array.each.with_index.reduce(Hash.new(0)) do |sum, (merchant, index)|
       sum[merchant] = merchant_quantity_revenue[index]
       sum
     end
-
-    
 
     max_merchant = meh.max_by do |key, value|
       value
     end
 
     max_merchant[0]
+
+  end
+
+  def one_time_buyers
+    invoices = mr.parent.invoices.invoice_list
+
+    valid_invoices_v2 = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+
+    hey = valid_invoices_v2.group_by do |invoice|
+      invoice.customer_id
+    end
+
+    hello = hey.values.find_all do |value|
+      value.count == 1
+    end
+
+    hello.flatten.map do |invoice|
+      invoice.customer
+    end
 
   end
 
