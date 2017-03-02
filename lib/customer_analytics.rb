@@ -37,8 +37,10 @@ module CustomerAnalytics
       mr.find_by_id(invoice.merchant_id)
     end
 
-    merchant_quantity_count = valid_invoices_v2.map do |invoice|
-      mr.parent.invoice_items.find_all_by_invoice_id(valid_invoices_v2.first.id).count
+     merchant_quantity_revenue = valid_invoices_v2.map do |invoice|
+      mr.parent.invoice_items.find_all_by_invoice_id(invoice.id).reduce(0) do |sum, item|
+        sum + item.quantity
+      end
     end
 
     # hey = valid_invoices.map.with_index do |invoice, index|
@@ -49,9 +51,11 @@ module CustomerAnalytics
     #
     # heyo = hey.compact
     meh = merchant_array.each.with_index.reduce(Hash.new(0)) do |sum, (merchant, index)|
-      sum[merchant] += merchant_quantity_count[index]
+      sum[merchant] = merchant_quantity_revenue[index]
       sum
     end
+
+    
 
     max_merchant = meh.max_by do |key, value|
       value
