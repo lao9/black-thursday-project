@@ -6,31 +6,28 @@ class CustomerAnalyticsTest < Minitest::Test
   include CustomerAnalytics
 
   def setup
-    @sa = SalesAnalyst.new
+    se = sales_engine_setup
+    @sa = SalesAnalyst.new(se)
   end
 
   def test_it_finds_the_top_buyers
-    skip
-    assert_instance_of Array, @sa.top_buyers(3)
-    assert_equal 3, @sa.top_buyers(3).count
-    assert_instance_of Customer, @sa.top_buyers(3).first
-    assert_equal 1, @sa.top_buyers(3).first.id
-    assert_equal 3, @sa.top_buyers(3).last.id
+    assert_instance_of Array, @sa.top_buyers(1)
+    assert_equal 1, @sa.top_buyers(1).count
+    assert_instance_of Customer, @sa.top_buyers(1).first
+    assert_equal 2, @sa.top_buyers(1).first.id
   end
 
   def test_it_defaults_the_top_20_buyers
-    skip
     assert_instance_of Array, @sa.top_buyers
-    assert_equal 6, @sa.top_buyers.count
+    assert_equal 2, @sa.top_buyers.count
     assert_instance_of Customer, @sa.top_buyers.first
-    assert_equal 6, @sa.top_buyers.last.id
+    assert_equal 1, @sa.top_buyers.last.id
   end
 
   def test_it_returns_the_top_merchant
-    skip
-    assert_instance_of Merchant, @sa.top_merchant_for_customer(customer_id)
-    assert_equal 12334178, @sa.top_merchant_for_customer(customer_id).id
-    assert_equal "NatalieWoolSocks", @sa.top_merchant_for_customer(customer_id).name
+    assert_instance_of Merchant, @sa.top_merchant_for_customer(1)
+    assert_equal 12334178, @sa.top_merchant_for_customer(1).id
+    assert_equal "NatalieWoolSocks", @sa.top_merchant_for_customer(1).name
   end
 
   def test_it_returns_one_time_buyers
@@ -70,6 +67,7 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_highest_volume_item
+    skip
     #=> [item] or [item, item, item]
     # first go to invoice and look up the invoice_item_id  (for a single customer)
     # in the invoice item table and pull out the quanity
@@ -107,7 +105,7 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal 7, @sa.best_invoice_by_revenue.id
   end
 
-  def test_someting
+  def test_best_invoice_by_quantity
     skip
     # max by quantity in invoice_items
     # return invoice_id = 17
