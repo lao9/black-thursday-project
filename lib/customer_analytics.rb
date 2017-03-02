@@ -58,19 +58,66 @@ module CustomerAnalytics
   def one_time_buyers
     invoices = mr.parent.invoices.invoice_list
 
-    valid_invoices_v2 = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+    valid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
 
-    hey = valid_invoices_v2.group_by do |invoice|
+    customer_grouper = valid_invoices.group_by do |invoice|
       invoice.customer_id
     end
 
-    hello = hey.values.find_all do |value|
+    one_timers = customer_grouper.values.find_all do |value|
       value.count == 1
     end
 
-    hello.flatten.map do |invoice|
+    one_timers.flatten.map do |invoice|
       invoice.customer
     end
+
+  end
+
+  def one_time_buyers_items
+
+    invoices = mr.parent.invoices.invoice_list
+
+    valid_invoices = invoices.find_all { |invoice| invoice.is_paid_in_full? }
+
+    customer_grouper = valid_invoices.group_by do |invoice|
+      invoice.customer_id
+    end
+
+    one_timers = customer_grouper.values.find_all do |value|
+      value.count == 1
+    end
+
+    one_timers = one_timers.flatten
+
+    invoice_items_list = one_timers.map do |invoice|
+      mr.parent.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+
+    item_list_v2 = invoice_items_list.flatten.each.with_index.reduce(Hash.new(0)) do |sum, (item, index)|
+      sum[mr.parent.items.find_by_id(item.item_id)] += item.quantity
+      sum
+    end
+
+    maximum_item = item_list_v2.values.max
+
+    max_item = item_list_v2.find_all do |key, value|
+      value == maximum_item
+    end
+
+  end
+
+  def items_bought_in_year(customer_id, year)
+
+    invoices = ivr.find_all_by_customer_id(customer_id).find_all do |invoice|
+      invoice.created_at.year == year
+    end
+
+    items = invoices.map do |invoice|
+      invoice.items
+    end
+
+    items.flatten
 
   end
 
