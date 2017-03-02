@@ -92,15 +92,18 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_returns_fully_paid_invoices
-    # pull out all invoices for customer
-    # [1, 2, 3, 4, 5, 6, 7, 8]
-    # for each invoice - find all that are paid in full
-    # is_paid_in_full?
     customer = @se.customers.find_by_id(1)
     assert_instance_of Array, customer.fully_paid_invoices
     assert_equal 1, customer.fully_paid_invoices.count
     assert_instance_of Invoice, customer.fully_paid_invoices.first
     assert_equal 46, customer.fully_paid_invoices.first.id
+  end
+
+  def test_invoice_to_invoice_item_relationship
+    invoice = @se.invoices.find_by_id(14)
+    assert_instance_of Array, invoice.invoice_items
+    assert_equal 8, invoice.invoice_items.count
+    assert_equal 67, invoice.invoice_items.first.id
   end
 
 end
