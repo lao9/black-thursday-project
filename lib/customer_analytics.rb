@@ -161,7 +161,7 @@ module CustomerAnalytics
   end
 
   def best_invoice_by_revenue
-    binding.pry
+    
     invoice_items = ivr.parent.invoice_items.invoice_item_list
 
     revenue_items = invoice_items.map do |invoice_item|
