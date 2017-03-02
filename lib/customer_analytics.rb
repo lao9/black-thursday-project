@@ -162,17 +162,33 @@ module CustomerAnalytics
 
   def best_invoice_by_revenue
 
-    revenue_items = ivr.parent.invoice_items.invoice_item_list.map do |invoice_item|
+    invoice_items = ivr.parent.invoice_items.invoice_item_list
+
+    revenue_items = invoice_items.map do |invoice_item|
       (invoice_item.quantity * invoice_item.unit_price)
     end
 
-    revenue_max = revenue_items.max
-
-    hey = ivr.parent.invoice_items.invoice_item_list.find do |invoice_item|
-      (invoice_item.quantity * invoice_item.unit_price) == revenue_max
+    revenue_hash = revenue_items.each.with_index.reduce(Hash.new(0)) do |sum, (money, index)|
+      sum[invoice_items[index]] += money
+      sum
     end
 
+    #binding.pry
+
+    revenue_max = revenue_hash.values.max
+
+    hey = revenue_hash.key(revenue_max)
+
     ivr.find_by_id(hey.invoice_id)
+
+    #
+    #
+    # hey = ivr.parent.invoice_items.invoice_item_list.find do |invoice_item|
+    #   (invoice_item.quantity * invoice_item.unit_price) == revenue_max
+    # end
+    #
+    #
+    #
 
 
   end
