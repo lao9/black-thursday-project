@@ -161,36 +161,70 @@ module CustomerAnalytics
   end
 
   def best_invoice_by_revenue
-
+    binding.pry
     invoice_items = ivr.parent.invoice_items.invoice_item_list
 
     revenue_items = invoice_items.map do |invoice_item|
-      if ivr.find_by_id(invoice_item.invoice_id).is_paid_in_full?
+      # if ivr.find_by_id(invoice_item.invoice_id).is_paid_in_full?
         (invoice_item.quantity * invoice_item.unit_price)
-      end
+      # end
     end
 
-    revenue_hash = revenue_items.compact.each.with_index.reduce(Hash.new(0)) do |sum, (money, index)|
-      sum[invoice_items[index]] += money
+    #revenue_items = revenue_items.compact
+
+    revenue_hash = revenue_items.each.with_index.reduce(Hash.new(0)) do |sum, (revenue, index)|
+      sum[ivr.find_by_id(invoice_items[index].invoice_id)] += revenue
       sum
     end
 
-    #binding.pry
 
-    revenue_max = revenue_hash.values.max
+    loop do
+      output = revenue_hash.max_by do |invoice_item, revenue|
+        revenue
+      end
 
-    hey = revenue_hash.key(revenue_max)
+      if output[0].is_paid_in_full? == false
+        revenue_hash.delete(output[0])
+      else
+        break
+      end
+    end
 
-    ivr.find_by_id(hey.invoice_id)
+    output = revenue_hash.max_by do |invoice_item, revenue|
+      revenue
+    end
 
+    output[0]
     #
+    # invoice_items = ivr.parent.invoice_items.invoice_item_list
     #
-    # hey = ivr.parent.invoice_items.invoice_item_list.find do |invoice_item|
-    #   (invoice_item.quantity * invoice_item.unit_price) == revenue_max
+    # revenue_items = invoice_items.map do |invoice_item|
+    #   if ivr.find_by_id(invoice_item.invoice_id).is_paid_in_full?
+    #     (invoice_item.quantity * invoice_item.unit_price)
+    #   end
     # end
     #
+    # revenue_hash = revenue_items.compact.each.with_index.reduce(Hash.new(0)) do |sum, (money, index)|
+    #   sum[invoice_items[index]] += money
+    #   sum
+    # end
     #
+    # #binding.pry
     #
+    # revenue_max = revenue_hash.values.max
+    #
+    # hey = revenue_hash.key(revenue_max)
+    #
+    # ivr.find_by_id(hey.invoice_id)
+    #
+    # #
+    # #
+    # # hey = ivr.parent.invoice_items.invoice_item_list.find do |invoice_item|
+    # #   (invoice_item.quantity * invoice_item.unit_price) == revenue_max
+    # # end
+    # #
+    # #
+    # #
 
 
   end
