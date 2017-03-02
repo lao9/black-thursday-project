@@ -121,4 +121,29 @@ module CustomerAnalytics
 
   end
 
+  def highest_volume_items(customer_id)
+    
+    invoice_items = ivr.find_all_by_customer_id(customer_id).map do |invoice|
+      mr.parent.invoice_items.find_all_by_invoice_id(invoice.id)
+    end
+
+    invoice_items = invoice_items.flatten
+
+    quantities = invoice_items.map do |invoice_item|
+      invoice_item.quantity
+    end
+
+    max_quant = quantities.max
+
+    max_invoice_items = invoice_items.find_all do |invoice_item|
+      invoice_item.quantity == max_quant
+    end
+
+    max_items = max_invoice_items.map do |invoice_item|
+      mr.parent.items.find_by_id(invoice_item.item_id)
+    end
+
+
+  end
+
 end

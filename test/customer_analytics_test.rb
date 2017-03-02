@@ -67,23 +67,22 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal 263399965, @sa.items_bought_in_year(1, 2003).first.id
     assert_equal 263399964, @sa.items_bought_in_year(1, 2003).last.id
   end
-  #
-  # def test_highest_volume_item
-  #   skip
-  #   #=> [item] or [item, item, item]
-  #   # first go to invoice and look up the invoice_item_id  (for a single customer)
-  #   # in the invoice item table and pull out the quanity
-  #   # return an array of item ids of the highest quantity items
-  #   # [42, 88]
-  #   # look up the items from the invoice_items table
-  #   # [item_ids : 263399749, 263399964]
-  #   # return item objects based on item _id
-  #   assert_instance_of Array, @sa.highest_volume_items(1)
-  #   assert_equal 2, @sa.highest_volume_items(1).count
-  #   assert_instance_of Item, @sa.highest_volume_items(1).first
-  #   assert_equal 263399749, @sa.highest_volume_items(1).first.id
-  #   assert_equal 263399964, @sa.highest_volume_items(1).last.id
-  # end
+
+  def test_highest_volume_item
+    #=> [item] or [item, item, item]
+    # first go to invoice and look up the invoice_item_id  (for a single customer)
+    # in the invoice item table and pull out the quanity
+    # return an array of item ids of the highest quantity items
+    # [42, 88]
+    # look up the items from the invoice_items table
+    # [item_ids : 263399749, 263399964]
+    # return item objects based on item _id
+    assert_instance_of Array, @sa.highest_volume_items(1)
+    assert_equal 2, @sa.highest_volume_items(1).count
+    assert_instance_of Item, @sa.highest_volume_items(1).first
+    assert_equal 263399825, @sa.highest_volume_items(1).first.id
+    assert_equal 263399953, @sa.highest_volume_items(1).last.id
+  end
   #
   # def test_customers_with_unpaid_invoices
   #   skip
