@@ -12,26 +12,30 @@ class SalesAnalyst
   include InvoiceAnalytics
   include CustomerAnalytics
 
-  attr_reader :mr, :merchant_id_list, :item_quantity_per_merchant,
-  :items_per_merchant_list, :items, :ivr, :invoice_total,
-  :invoice_mean, :invoice_std, :iil, :valid_invoices, :customer_list
+  attr_reader :mr, :il, :ivr, :iil, :se, :cr, :iir, :ivl, :ir,
+  :valid_invoice_items, :customer_list, :total_spent
 
   def initialize(se)
+    @se = se
     @mr = se.merchants
-    @merchant_id_list = create_merchant_id_list
-    @item_quantity_per_merchant = group_ids_by_quantity
-    @items_per_merchant_list = map_by_quantity(item_quantity_per_merchant)
-    @items = @mr.parent.items.item_list
+    @ir = se.items
+    @il = ir.item_list
     @ivr = se.invoices
-    @invoice_total = invoices_per_merchant_list(merchant_id_list)
-    @invoice_mean = calculate_average(invoice_total)
-    @invoice_std = standard_deviation(invoice_total)
-    @iil = se.invoice_items.invoice_item_list
-    @valid_invoices = iil.find_all { |item|
-      se.invoices.find_by_id(item.invoice_id).is_paid_in_full? }
-    @customer_list = valid_invoices.map do |item|
-        mr.parent.invoices.find_by_id(item.invoice_id).customer
-      end
+    @ivl = ivr.invoice_list
+    @iir = se.invoice_items
+    @iil = iir.invoice_item_list
+    @cr = se.customers
+    @valid_invoice_items = iil.find_all do |item|
+      se.invoices.find_by_id(item.invoice_id).is_paid_in_full?
+    end
+    @customer_list = @valid_invoice_items.map do |item|
+      ivr.find_by_id(item.invoice_id).customer
+    end
+    @total_spent = @valid_invoice_items.map(&:revenue)
+  end
+
+  def valid_invoice_items
+
   end
 
 end
