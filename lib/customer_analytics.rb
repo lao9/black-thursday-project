@@ -160,4 +160,29 @@ module CustomerAnalytics
 
   end
 
+  def best_invoice_by_revenue
+
+    revenue_items = ivr.parent.invoice_items.invoice_item_list.map do |invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price)
+    end
+
+    revenue_max = revenue_items.max
+
+    hey = ivr.parent.invoice_items.invoice_item_list.find do |invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price) == revenue_max
+    end
+
+    ivr.find_by_id(hey.invoice_id)
+
+
+  end
+
+  def best_invoice_by_quantity
+    invoice_items = ivr.parent.invoice_items.invoice_item_list.max_by do |invoice_item|
+      invoice_item.quantity
+    end
+
+    ivr.find_by_id(invoice_items.invoice_id)
+  end
+
 end
