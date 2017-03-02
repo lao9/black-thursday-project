@@ -109,7 +109,7 @@ class CustomerAnalyticsTest < Minitest::Test
     # return invoice_id = 17
     # look up the invoice object for that id (findy by id)
     assert_instance_of Invoice, @sa.best_invoice_by_quantity
-    assert_equal 17, @sa.best_invoice_by_quantity.id
+    assert_equal 1281, @sa.best_invoice_by_quantity.id
   end
 
 end

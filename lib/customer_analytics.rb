@@ -225,6 +225,10 @@ module CustomerAnalytics
       end
     end
 
+    output = quantity_hash.max_by do |invoice_item, quantity|
+      quantity
+    end
+
     output[0]
 
   end
