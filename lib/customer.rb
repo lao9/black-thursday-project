@@ -19,4 +19,11 @@ class Customer
     end
   end
 
+  def fully_paid_invoices
+    invoices = @parent.parent.invoices.find_all_by_customer_id(@id)
+    invoices.find_all do |invoice|
+      invoice.is_paid_in_full?
+    end
+  end
+
 end

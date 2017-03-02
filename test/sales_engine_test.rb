@@ -91,4 +91,16 @@ class SalesEngineTest < Minitest::Test
     assert_equal 12334178, customer.merchants.first.id
   end
 
+  def test_it_returns_fully_paid_invoices
+    # pull out all invoices for customer
+    # [1, 2, 3, 4, 5, 6, 7, 8]
+    # for each invoice - find all that are paid in full
+    # is_paid_in_full?
+    customer = @se.customers.find_by_id(1)
+    assert_instance_of Array, customer.fully_paid_invoices
+    assert_equal 1, customer.fully_paid_invoices.count
+    assert_instance_of Invoice, customer.fully_paid_invoices.first
+    assert_equal 46, customer.fully_paid_invoices.first.id
+  end
+
 end

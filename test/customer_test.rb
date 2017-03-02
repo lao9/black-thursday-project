@@ -37,4 +37,5 @@ class CustomerTest < Minitest::Test
     assert_equal Time.new(1980, 11, 23, 9, 11, 30, 0000).utc, @c.updated_at
     assert_instance_of Time, @c.updated_at
   end
+
 end
