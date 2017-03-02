@@ -1,22 +1,6 @@
 
 module CustomerAnalytics
 
-  def valid_invoice_items
-    iil.find_all do |item|
-      se.invoices.find_by_id(item.invoice_id).is_paid_in_full?
-    end
-  end
-
-  def customer_list
-    valid_invoice_items.map do |item|
-      ivr.find_by_id(item.invoice_id).customer
-    end
-  end
-
-  def total_spent
-    valid_invoice_items.map { |item| item.quantity * item.unit_price }
-  end
-
   def buyer_builder
     total_spent.each.with_index.reduce(Hash.new(0)) do |output, (total, index)|
       output[customer_list[index]] += total
@@ -50,11 +34,9 @@ module CustomerAnalytics
 
   def top_merchant_for_customer(customer_id)
     valid_cust_invoices = cr.find_by_id(customer_id).fully_paid_invoices
-    merchants = valid_cust_invoices.map do |invoice|
-      mr.find_by_id(invoice.merchant_id)
-    end
+    merchants = valid_cust_invoices.map(&:merchant)
     merchant_quantity = valid_cust_invoices.map do |invoice|
-      quantity_summer(iir.find_all_by_invoice_id(invoice.id))
+      quantity_summer(invoice.invoice_items)
     end
     quantity_list = merchant_quantity_builder(merchants, merchant_quantity)
     max_merchant = return_top_merchant(quantity_list)
@@ -78,7 +60,7 @@ module CustomerAnalytics
 
   def item_list_builder(set)
     set.each.with_index.reduce(Hash.new(0)) do |sum, (item, index)|
-      sum[ir.find_by_id(item.item_id)] += 1
+      sum[item.item] += 1
       sum
     end
   end
@@ -90,9 +72,7 @@ module CustomerAnalytics
   end
 
   def one_time_buyers_items
-    buyer_items = one_timers.map do |invoice|
-      iir.find_all_by_invoice_id(invoice.id)
-    end
+    buyer_items = one_timers.map(&:invoice_items)
     buyer_item_list = item_list_builder(buyer_items.flatten)
     max = buyer_item_list.values.max
     max_item = find_all_max(buyer_item_list, max)
@@ -108,9 +88,7 @@ module CustomerAnalytics
   end
 
   def customer_invoice_items(customer_id)
-    ivr.find_all_by_customer_id(customer_id).map do |invoice|
-      iir.find_all_by_invoice_id(invoice.id)
-    end
+    ivr.find_all_by_customer_id(customer_id).map(&:invoice_items)
   end
 
   def find_all_that_are_max(set, max)
@@ -123,9 +101,7 @@ module CustomerAnalytics
     invoice_items = customer_invoice_items(customer_id).flatten
     quantities = invoice_items.map(&:quantity)
     max_invoice_items = find_all_that_are_max(invoice_items, quantities.max)
-    max_items = max_invoice_items.map do |invoice_item|
-      ir.find_by_id(invoice_item.item_id)
-    end
+    max_items = max_invoice_items.map(&:item)
   end
 
   def customers_with_unpaid_invoices
@@ -150,9 +126,7 @@ module CustomerAnalytics
   end
 
   def best_invoice_by_revenue
-    revenue_items = iil.map do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
-    end
+    revenue_items = iil.map(&:revenue)
     revenues = quantity_builder(revenue_items)
     output = max_quantity_finder(revenues)
     until output[0].is_paid_in_full?

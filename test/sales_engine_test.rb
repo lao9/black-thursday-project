@@ -8,9 +8,6 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_from_csv_method
-    assert_instance_of SalesEngine, @se
-    assert_instance_of CSV, @se.merchant_raw_data
-    assert_instance_of CSV, @se.item_raw_data
     assert_instance_of MerchantRepository, @se.merchants
     assert_instance_of ItemRepository, @se.items
   end

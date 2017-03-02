@@ -2,6 +2,22 @@ module InvoiceAnalytics
 
   include StatsCalculator
 
+  def merchant_id_list
+    create_merchant_id_list
+  end
+
+  def item_quantity_per_merchant
+    group_ids_by_quantity
+  end
+
+  def items_per_merchant_list
+    map_by_quantity(item_quantity_per_merchant)
+  end
+
+  def invoice_total
+    invoices_per_merchant_list(merchant_id_list)
+  end
+
   def invoices_per_merchant_list(id_list)
     invoices_grouper = id_list.group_by do |merchant_id|
       mr.find_by_id(merchant_id).invoices.count
@@ -9,8 +25,16 @@ module InvoiceAnalytics
     map_by_quantity(invoices_grouper)
   end
 
+  def invoice_mean
+    calculate_average(invoice_total)
+  end
+
   def average_invoices_per_merchant
     invoice_mean
+  end
+
+  def invoice_std
+    standard_deviation(invoice_total)
   end
 
   def average_invoices_per_merchant_standard_deviation
