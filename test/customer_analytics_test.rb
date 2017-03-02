@@ -6,7 +6,7 @@ class CustomerAnalyticsTest < Minitest::Test
   include CustomerAnalytics
 
   def setup
-    se = alternative_sales_engine_setup
+    se = sales_engine_setup
     @sa = SalesAnalyst.new(se)
   end
 
@@ -32,40 +32,41 @@ class CustomerAnalyticsTest < Minitest::Test
   #   #assert_equal "NatalieWoolSocks", @sa.top_merchant_for_customer(1).name
   # end
 
-  def test_it_returns_one_time_buyers
-    assert_instance_of Array, @sa.one_time_buyers
-    assert_equal 150, @sa.one_time_buyers.count
-    assert_instance_of Customer, @sa.one_time_buyers.first
-    #assert_equal 6, @sa.one_time_buyers.first.id
-  end
+  # def test_it_returns_one_time_buyers
+  #   assert_instance_of Array, @sa.one_time_buyers
+  #   assert_equal 150, @sa.one_time_buyers.count
+  #   assert_instance_of Customer, @sa.one_time_buyers.first
+  #   #assert_equal 6, @sa.one_time_buyers.first.id
+  # end
   #
   # def test_one_time_buyer_item
-  #   skip
-  #   assert_instance_of Array, @sa.one_time_buyers_item
-  #   assert_equal 1, @sa.one_time_buyers_item.count
-  #   assert 263399956, @sa.one_time_buyers_item.first.id
+  #   assert_instance_of Array, @sa.one_time_buyers_items
+  #   assert_equal 4, @sa.one_time_buyers_items.count
+  #   assert_equal 263512652, @sa.one_time_buyers_items.first.id
+  #   assert_equal 263434165, @sa.one_time_buyers_items.last.id
+  #   assert_instance_of Item, @sa.one_time_buyers_items.first
   # end
+
   #
-  # def test_items_bought_in_a_years
-  #   skip
-  #   # which items a given customer bought in given year
-  #   # (by the created_at on the related invoice):
-  #   # => [item]
-  #   assert_instance_of Array, @sa.items_bought_in_year(1, 2003)
-  #   # [8, 48, 88]
-  #   # 263399965
-  #   # 263399966
-  #   # 263523156
-  #   # 263558464
-  #   # 263406625
-  #   # 263395237
-  #   # 263399749
-  #   # 263399825
-  #   assert_equal 8, @sa.items_bought_in_year(1, 2003).count
-  #   assert_instance_of Item, @sa.items_bought_in_year(customer_id, year).first
-  #   assert_equal 263399965, @sa.items_bought_in_year(customer_id, year).first.id
-  #   assert_equal 263399825, @sa.items_bought_in_year(customer_id, year).last.id
-  # end
+  def test_items_bought_in_a_years
+    # which items a given customer bought in given year
+    # (by the created_at on the related invoice):
+    # => [item]
+    assert_instance_of Array, @sa.items_bought_in_year(1, 2003)
+    # [8, 48, 88]
+    # 263399965
+    # 263399966
+    # 263523156
+    # 263558464
+    # 263406625
+    # 263395237
+    # 263399749
+    # 263399825
+    assert_equal 10, @sa.items_bought_in_year(1, 2003).count
+    assert_instance_of Item, @sa.items_bought_in_year(1, 2003).first
+    assert_equal 263399965, @sa.items_bought_in_year(1, 2003).first.id
+    assert_equal 263399964, @sa.items_bought_in_year(1, 2003).last.id
+  end
   #
   # def test_highest_volume_item
   #   skip
