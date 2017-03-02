@@ -122,7 +122,7 @@ module CustomerAnalytics
   end
 
   def highest_volume_items(customer_id)
-    
+
     invoice_items = ivr.find_all_by_customer_id(customer_id).map do |invoice|
       mr.parent.invoice_items.find_all_by_invoice_id(invoice.id)
     end
@@ -143,6 +143,20 @@ module CustomerAnalytics
       mr.parent.items.find_by_id(invoice_item.item_id)
     end
 
+
+  end
+
+  def customers_with_unpaid_invoices
+
+    unpaid_invoices = ivr.invoice_list.find_all do |invoice|
+      invoice.is_paid_in_full? == false
+    end
+
+    customer_list = unpaid_invoices.map do |invoice|
+      invoice.customer
+    end
+
+    customer_list.uniq
 
   end
 

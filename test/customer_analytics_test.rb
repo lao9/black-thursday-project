@@ -83,19 +83,18 @@ class CustomerAnalyticsTest < Minitest::Test
     assert_equal 263399825, @sa.highest_volume_items(1).first.id
     assert_equal 263399953, @sa.highest_volume_items(1).last.id
   end
-  #
-  # def test_customers_with_unpaid_invoices
-  #   skip
-  #   # use invoice.paid_in_full? on every invoice and return
-  #   # a list of only those that are false
-  #   # [Invoices, Invoices, Invoices ]
-  #   # [Invoices.customer_id].uniq
-  #   # find customers with unpaid invoices => [customer, customer, customer]
-  #   assert_instance_of Array, @sa.customers_with_unpaid_invoices
-  #   assert_equal 3, @sa.customers_with_unpaid_invoices.count
-  #   assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
-  #   assert_equal 1, @sa.customers_with_unpaid_invoices.first.id
-  # end
+
+  def test_customers_with_unpaid_invoices
+    # use invoice.paid_in_full? on every invoice and return
+    # a list of only those that are false
+    # [Invoices, Invoices, Invoices ]
+    # [Invoices.customer_id].uniq
+    # find customers with unpaid invoices => [customer, customer, customer]
+    assert_instance_of Array, @sa.customers_with_unpaid_invoices
+    assert_equal 6, @sa.customers_with_unpaid_invoices.count
+    assert_instance_of Customer, @sa.customers_with_unpaid_invoices.first
+    assert_equal 1, @sa.customers_with_unpaid_invoices.first.id
+  end
   #
   # def test_best_invoice_by_revenue
   #   skip
