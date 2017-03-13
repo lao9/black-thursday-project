@@ -60,7 +60,7 @@ module CustomerAnalytics
 
   def item_list_builder(set)
     set.each.with_index.reduce(Hash.new(0)) do |sum, (item, index)|
-      sum[item.item] += 1
+      sum[item.item] += item.quantity
       sum
     end
   end
@@ -71,7 +71,7 @@ module CustomerAnalytics
     end
   end
 
-  def one_time_buyers_items
+  def one_time_buyers_top_items
     buyer_items = one_timers.map(&:invoice_items)
     buyer_item_list = item_list_builder(buyer_items.flatten)
     max = buyer_item_list.values.max

@@ -36,10 +36,10 @@ class CustomerAnalyticsTest < Minitest::Test
   end
 
   def test_one_time_buyer_item
-    assert_instance_of Array, @sa.one_time_buyers_items
-    assert_equal 1, @sa.one_time_buyers_items.count
-    assert_equal 263399954, @sa.one_time_buyers_items.first.id
-    assert_instance_of Item, @sa.one_time_buyers_items.first
+    assert_instance_of Array, @sa.one_time_buyers_top_items
+    assert_equal 1, @sa.one_time_buyers_top_items.count
+    assert_equal 263399933, @sa.one_time_buyers_top_items.first.id
+    assert_instance_of Item, @sa.one_time_buyers_top_items.first
   end
 
 
